@@ -8,6 +8,8 @@ register_matplotlib_converters()
 df = pd.read_csv('fcc-forum-pageviews.csv', index_col='date')
 
 # Clean data
+p_top = df.quantile(0.975)
+p_bottom = df.quantile(0.025)
 df = None
 
 
