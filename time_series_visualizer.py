@@ -8,10 +8,11 @@ register_matplotlib_converters()
 df = pd.read_csv('fcc-forum-pageviews.csv', index_col='date')
 
 # Clean data
-p_top = df.quantile(0.975)
-p_bottom = df.quantile(0.025)
-df = None
+p_top = df['value'] >= df['value'].quantile(0.975)
+p_bottom = df['value'] <= df['value'].quantile(0.025)
+between = (p_top | p_bottom)
 
+df = df.drop(index=df[between].index)
 
 def draw_line_plot():
     # Draw line plot
